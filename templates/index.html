@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aksjeanalysator - Oslo Børs</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>Aksjeanalysator</h1>
+            <p class="undertittel">Analyser, filtrer og sammenlign aksjer på Oslo Børs</p>
+            <nav class="tab-nav">
+                <button class="tab-knapp aktiv" data-tab="oversikt">Oversikt</button>
+                <button class="tab-knapp" data-tab="rangering">Rangering</button>
+                <button class="tab-knapp" data-tab="sammenligning">Sammenligning</button>
+            </nav>
+        </header>
+
+        <main class="innhold">
+            <!-- Status-banner -->
+            <div id="status-banner" class="status-banner skjult">
+                <div class="status-spinner"></div>
+                <span id="status-tekst">Laster aksjedata...</span>
+            </div>
+
+            <!-- FANE 1: Oversikt -->
+            <section id="visning-oversikt" class="visning aktiv">
+                <div class="filter-bar">
+                    <div class="filter-gruppe">
+                        <label for="sektor-filter">Sektor</label>
+                        <select id="sektor-filter">
+                            <option value="">Alle sektorer</option>
+                        </select>
+                    </div>
+                    <div class="filter-gruppe">
+                        <label for="sok-input">Søk</label>
+                        <input type="text" id="sok-input" placeholder="Søk etter aksje...">
+                    </div>
+                </div>
+
+                <div class="tabell-container">
+                    <table id="aksje-tabell">
+                        <thead>
+                            <tr>
+                                <th data-kolonne="ticker" class="sorterbar">Ticker</th>
+                                <th data-kolonne="navn" class="sorterbar">Navn</th>
+                                <th data-kolonne="sektor" class="sorterbar">Sektor</th>
+                                <th data-kolonne="kurs" class="sorterbar tall">Kurs</th>
+                                <th data-kolonne="pe" class="sorterbar tall">P/E</th>
+                                <th data-kolonne="dividendeYield" class="sorterbar tall">Div%</th>
+                                <th data-kolonne="roe" class="sorterbar tall">ROE</th>
+                                <th data-kolonne="markedsverdi" class="sorterbar tall">Mrd. NOK</th>
+                                <th class="handling-kolonne">Sammenlign</th>
+                            </tr>
+                        </thead>
+                        <tbody id="aksje-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- FANE 2: Rangering -->
+            <section id="visning-rangering" class="visning">
+                <div class="rangering-oppsett">
+                    <div class="kort">
+                        <h2>Velg nøkkeltall</h2>
+                        <p class="kort-beskrivelse">Velg hvilke nøkkeltall du vil rangere etter, og om høyere eller lavere verdi er best.</p>
+                        <div id="nokkeltal-velger" class="nokkeltal-grid">
+                        </div>
+                        <div class="rangering-filter">
+                            <label for="rangering-sektor">Filtrer på sektor</label>
+                            <select id="rangering-sektor">
+                                <option value="">Alle sektorer</option>
+                            </select>
+                        </div>
+                        <button id="ranger-knapp" class="primaer-knapp">Ranger aksjer</button>
+                    </div>
+                </div>
+
+                <div id="rangering-resultat" class="rangering-resultat skjult">
+                    <div class="resultat-header">
+                        <h2>Resultat</h2>
+                        <span id="rangering-info" class="info-tekst"></span>
+                    </div>
+                    <div class="tabell-container">
+                        <table id="rangering-tabell">
+                            <thead>
+                                <tr id="rangering-thead-rad">
+                                </tr>
+                            </thead>
+                            <tbody id="rangering-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FANE 3: Sammenligning -->
+            <section id="visning-sammenligning" class="visning">
+                <div class="sammenligning-velger">
+                    <div class="kort">
+                        <h2>Velg aksjer å sammenligne</h2>
+                        <p class="kort-beskrivelse">Velg 2-5 aksjer for side-om-side sammenligning. Du kan også legge til aksjer fra Oversikt-fanen.</p>
+                        <div class="sammenligning-sok-container">
+                            <input type="text" id="sammenligning-sok" placeholder="Søk etter aksje å legge til...">
+                            <div id="sammenligning-forslag" class="forslag-liste skjult"></div>
+                        </div>
+                        <div id="valgte-aksjer" class="chip-container">
+                        </div>
+                        <button id="sammenlign-knapp" class="primaer-knapp" disabled>Sammenlign</button>
+                    </div>
+                </div>
+
+                <div id="sammenligning-resultat" class="sammenligning-resultat skjult">
+                    <div id="sammenligning-kort-container" class="sammenligning-grid">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/tabell.js"></script>
+    <script src="/static/js/rangering.js"></script>
+    <script src="/static/js/sammenligning.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
